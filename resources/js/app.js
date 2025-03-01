@@ -7,7 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 // Quasar
-import { Quasar } from 'quasar'
+import { Quasar,AppFullscreen } from 'quasar'
 import quasarLang from 'quasar/lang/zh-CN'
 import quasarLangZhCN from 'quasar/lang/zh-CN';
 import quasarLangEnUS from 'quasar/lang/en-US';
@@ -48,7 +48,7 @@ createInertiaApp({
             .use(Quasar, {
                 lang: quasarLangZhCN,
                 plugins: {
-
+                    AppFullscreen,
                 }, // import Quasar plugins and add here
               })
             .mount(el);
