@@ -7,7 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 // Quasar
-import { Quasar,AppFullscreen } from 'quasar'
+import { Quasar, AppFullscreen } from 'quasar'
 import quasarLang from 'quasar/lang/zh-CN'
 import quasarLangZhCN from 'quasar/lang/zh-CN';
 import quasarLangEnUS from 'quasar/lang/en-US';
@@ -46,14 +46,29 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(Quasar, {
-                lang: quasarLangZhCN,
+                lang: quasarLangEnUS,
+                config: {
+                    brand: {
+                        primary: '#7367F0',
+                        secondary: '#A8AAAE',
+                        accent: '#9C27B0',
+
+                        dark: '#2f3349',
+                        'dark-page': '#2f3349',
+
+                        positive: '#21BA45',
+                        negative: '#C10015',
+                        info: '#31CCEC',
+                        warning: '#F2C037'
+                }
+            },
                 plugins: {
-                    AppFullscreen,
-                }, // import Quasar plugins and add here
+                AppFullscreen,
+            },
               })
-            .mount(el);
+    .mount(el);
     },
-    progress: {
-        color: '#4B5563',
+progress: {
+    color: '#4B5563',
     },
 });
