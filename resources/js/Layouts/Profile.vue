@@ -21,7 +21,7 @@
         </q-item-section>
       </q-item>
       <q-separator />
-      <q-item class="q-mb-sm" clickable v-ripple>
+      <q-item :href="route('profile.show')" class="q-mb-sm" clickable v-ripple>
         <q-item-section avatar>
           <q-avatar  text-color="grey" icon="person" />
         </q-item-section>
@@ -47,7 +47,7 @@
       </q-item>
       <q-item class="q-mb-sm" clickable v-ripple>
         <q-item-section avatar>
-          <q-avatar  text-color="grey" icon="settings" />
+          <q-avatar  text-color="grey" icon="logout" />
         </q-item-section>
         <q-item-section>
           <q-item-label>Log Out</q-item-label>
