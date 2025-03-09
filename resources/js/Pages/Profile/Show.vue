@@ -1,6 +1,11 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
+import LogoutOtherBrowserSessionsForm from "@/Pages/Profile/Partials/LogoutOtherBrowserSessionsForm.vue";
+import SectionBorder from "@/Components/SectionBorder.vue";
+import TwoFactorAuthenticationForm from "@/Pages/Profile/Partials/TwoFactorAuthenticationForm.vue";
+import UpdatePasswordForm from "@/Pages/Profile/Partials/UpdatePasswordForm.vue";
+import UpdateProfileInformationForm from "@/Pages/Profile/Partials/UpdateProfileInformationForm.vue";
 
 const user_details = reactive({
     user_name: "",
@@ -10,7 +15,6 @@ const user_details = reactive({
     address: "",
     city: "",
     post_code: "",
-    about: "",
 });
 
 const password_dict = reactive({
@@ -18,228 +22,99 @@ const password_dict = reactive({
     new_password: "",
     confirm_new_password: "",
 });
-</script>
+const model = ref("one");
 
-<style scoped>
-/* .card-bg {
-    background-color: #a4bce3;
-} */
-</style>
+defineProps({
+    confirmsTwoFactorAuthentication: Boolean,
+    sessions: Array,
+});
+</script>
 
 <template>
     <AppLayout>
         <q-page class="q-pa-lg q-mt-md">
-            <div class="text-h5 color q-mb-lg q-py-sm">
-                <span class="text-weight-regular text-grey-6"> Profile/ </span>
-                <span class="text-grey-9"> Details </span>
+            <div class="text-h5 text-grey q-mb-lg q-py-sm bordered">
+                <q-btn-toggle
+                    v-model="model"
+                    no-caps
+                    unelevated
+                    toggle-color="primary"
+                    text-color="write"
+                    :options="[
+                        { label: 'Account', value: 'one', icon: 'person' },
+                        { label: 'Security', value: 'two', icon: 'lock' },
+                        {
+                            label: 'Notification',
+                            value: 'three',
+                            icon: 'notifications',
+                        },
+                    ]"
+                />
             </div>
+
             <div class="row q-col-gutter-sm">
-                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                <!-- Profile Information -->
+                <div v-if="model === 'one'" class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
                     <q-card class="card-bg text-grey no-shadow" bordered>
                         <q-card-section class="text-h6">
-                            <div class="text-h6">Edit Profile</div>
-                            <div class="text-subtitle2">
-                                Complete your profile
-                            </div>
+                            <div class="text-h6">Profile Information</div>
+                            <!-- <div class="text-subtitle2">Edit Profile</div> -->
                         </q-card-section>
                         <q-card-section class="q-pa-sm">
-                            <q-list class="row">
-                                <q-item
-                                    class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section side>
-                                        <q-avatar size="100px">
-                                            <img
-                                                src="https://cdn.quasar.dev/img/boy-avatar.png"
-                                            />
-                                        </q-avatar>
-                                    </q-item-section>
-                                    <q-item-section>
-                                        <q-btn
-                                            label="Add Photo"
-                                            class="text-capitalize"
-                                            rounded
-                                            color="info"
-                                            style="max-width: 120px"
-                                        ></q-btn>
-                                    </q-item-section>
-                                </q-item>
-
-                                <q-item
-                                    class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            dense
-                                            v-model="user_details.user_name"
-                                            label="User Name"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                                <q-item
-                                    class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            dense
-                                            v-model="user_details.email"
-                                            label="Email Address"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                                <q-item
-                                    class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            dense
-                                            v-model="user_details.first_name"
-                                            label="First Name"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                                <q-item
-                                    class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            dense
-                                            v-model="user_details.last_name"
-                                            label="Last Name"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                                <q-item
-                                    class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            autogrow
-                                            dense
-                                            v-model="user_details.address"
-                                            label="Address"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                                <q-item
-                                    class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            dense
-                                            v-model="user_details.city"
-                                            label="City"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                                <q-item
-                                    class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            dense
-                                            v-model="user_details.post_code"
-                                            label="Postal Code"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                                <q-item
-                                    class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                                >
-                                    <q-item-section>
-                                        <q-input
-                                            type="textarea"
-                                            dense
-                                            v-model="user_details.about"
-                                            label="About"
-                                        />
-                                    </q-item-section>
-                                </q-item>
-                            </q-list>
+                            <div>
+                                <UpdateProfileInformationForm
+                                    :user="$page.props.auth.user"
+                                />
+                                <SectionBorder />
+                            </div>
                         </q-card-section>
-                        <q-card-actions align="right">
-                            <q-btn class="text-capitalize bg-info text-white"
-                                >Update User Info</q-btn
-                            >
-                        </q-card-actions>
                     </q-card>
                 </div>
 
-                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                <!-- Security -->
+                <div v-if="model === 'two'" class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
                     <q-card class="card-bg text-grey no-shadow" bordered>
-                        <q-card-section class="text-h6 q-pa-sm">
+                        <q-card-section class="text-h6">
                             <div class="text-h6">Change Password</div>
                         </q-card-section>
-                        <q-card-section class="q-pa-sm row">
-                            <q-item
-                                class="col-lg-4 col-md-4 col-sm-12 col-xs-12"
-                            >
-                                <q-item-section>
-                                    Current Password
-                                </q-item-section>
-                            </q-item>
-                            <q-item
-                                class="col-lg-8 col-md-8 col-sm-12 col-xs-12"
-                            >
-                                <q-item-section>
-                                    <q-input
-                                        type="password"
-                                        dense
-                                        outlined
-                                        round
-                                        v-model="password_dict.current_password"
-                                        label="Current Password"
-                                    />
-                                </q-item-section>
-                            </q-item>
-                            <q-item
-                                class="col-lg-4 col-md-4 col-sm-12 col-xs-12"
-                            >
-                                <q-item-section> New Password </q-item-section>
-                            </q-item>
-                            <q-item
-                                class="col-lg-8 col-md-8 col-sm-12 col-xs-12"
-                            >
-                                <q-item-section>
-                                    <q-input
-                                        type="password"
-                                        dense
-                                        outlined
-                                        round
-                                        v-model="password_dict.new_password"
-                                        label="New Password"
-                                    />
-                                </q-item-section>
-                            </q-item>
-                            <q-item
-                                class="col-lg-4 col-md-4 col-sm-12 col-xs-12"
-                            >
-                                <q-item-section>
-                                    Confirm New Password
-                                </q-item-section>
-                            </q-item>
-                            <q-item
-                                class="col-lg-8 col-md-8 col-sm-12 col-xs-12"
-                            >
-                                <q-item-section>
-                                    <q-input
-                                        type="password"
-                                        dense
-                                        outlined
-                                        round
-                                        v-model="
-                                            password_dict.confirm_new_password
-                                        "
-                                        label="Confirm New Password"
-                                    />
-                                </q-item-section>
-                            </q-item>
+                        <q-card-section class="q-pa-sm">
+                            <UpdatePasswordForm />
+                            <q-separator class="q-mt-lg q-mb-lg" />
+                            <TwoFactorAuthenticationForm
+                                :requires-confirmation="
+                                    confirmsTwoFactorAuthentication
+                                "
+                                class="mt-10 sm:mt-0"
+                            />
+                            <q-separator class="q-mt-lg q-mb-lg" />
+                            <LogoutOtherBrowserSessionsForm
+                                :sessions="sessions"
+                                class="mt-10 sm:mt-0"
+                            />
+                            <SectionBorder />
                         </q-card-section>
-                        <q-card-actions align="right">
-                            <q-btn class="text-capitalize bg-info text-white"
-                                >Change Password</q-btn
-                            >
-                        </q-card-actions>
+                    </q-card>
+                </div>
+
+                <!-- Notification -->
+                <div v-if="model === 'three'" class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                    <q-card class="card-bg text-grey no-shadow" bordered>
+                        <q-card-section class="text-h6">
+                            <div class="text-h6">Notification</div>
+                        </q-card-section>
+                        <q-card-section class="q-pa-sm">
+                            <div>
+                                <q-item>
+                                    <q-item-section>
+                                        <q-item-label>Notify me when someone follows me</q-item-label>
+                                    </q-item-section>
+                                    <q-item-section side>
+                                        <q-toggle v-model="model" />
+                                    </q-item-section>
+                                </q-item>
+                                <SectionBorder />
+                            </div>
+                        </q-card-section>
                     </q-card>
                 </div>
             </div>

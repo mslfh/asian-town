@@ -77,17 +77,9 @@ const clearPhotoFileInput = () => {
 
 <template>
     <FormSection @submitted="updateProfileInformation">
-        <template #title>
-            Profile Information
-        </template>
-
-        <template #description>
-            Update your account's profile information and email address.
-        </template>
-
         <template #form>
             <!-- Profile Photo -->
-            <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input
                     id="photo"
@@ -127,7 +119,6 @@ const clearPhotoFileInput = () => {
 
                 <InputError :message="form.errors.photo" class="mt-2" />
             </div>
-
             <!-- Name -->
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="name" value="Name" />
@@ -141,7 +132,6 @@ const clearPhotoFileInput = () => {
                 />
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
-
             <!-- Email -->
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="email" value="Email" />

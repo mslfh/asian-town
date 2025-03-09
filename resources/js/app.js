@@ -60,15 +60,15 @@ createInertiaApp({
                         negative: '#C10015',
                         info: '#31CCEC',
                         warning: '#F2C037'
-                }
-            },
+                    }
+                },
                 plugins: {
-                AppFullscreen,
-            },
-              })
-    .mount(el);
+                    AppFullscreen,
+                },
+            })
+            .mount(el);
     },
-progress: {
-    color: '#4B5563',
+    progress: {
+        color: '#4B5563',
     },
 });

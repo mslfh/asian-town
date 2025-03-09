@@ -6,10 +6,13 @@ import SectionTitle from './SectionTitle.vue';
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <SectionTitle>
             <template #title>
-                <slot name="title" />
+                <div class="text-h6 text-grey-7"><slot name="title" /></div>
+
             </template>
             <template #description>
-                <slot name="description" />
+                <div class="text-grey">
+                    <slot name="description" />
+                </div>
             </template>
         </SectionTitle>
 

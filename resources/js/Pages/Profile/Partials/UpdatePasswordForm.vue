@@ -39,13 +39,6 @@ const updatePassword = () => {
 
 <template>
     <FormSection @submitted="updatePassword">
-        <template #title>
-            Update Password
-        </template>
-
-        <template #description>
-            Ensure your account is using a long, random password to stay secure.
-        </template>
 
         <template #form>
             <div class="col-span-6 sm:col-span-4">
@@ -84,6 +77,13 @@ const updatePassword = () => {
                     autocomplete="new-password"
                 />
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                Password Requirements:
+Minimum 8 characters long - the more, the better
+At least one lowercase character
+At least one number, symbol, or whitespace character
             </div>
         </template>
 
