@@ -61,12 +61,10 @@ defineProps({
                             <!-- <div class="text-subtitle2">Edit Profile</div> -->
                         </q-card-section>
                         <q-card-section class="q-pa-sm">
-                            <div>
                                 <UpdateProfileInformationForm
                                     :user="$page.props.auth.user"
                                 />
                                 <SectionBorder />
-                            </div>
                         </q-card-section>
                     </q-card>
                 </div>

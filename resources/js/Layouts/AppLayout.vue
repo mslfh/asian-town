@@ -172,87 +172,38 @@ const zoomLeftDrawer = () => {
                         </q-item-section>
                     </q-item>
                     <q-item
-                        to="/Dashboard2"
+                        :href="route('profile.show')"
                         active-class="q-item-no-link-highlighting"
                     >
                         <q-item-section avatar>
                             <q-icon name="dashboard" />
                         </q-item-section>
                         <q-item-section>
-                            <q-item-label>CRM Dashboard</q-item-label>
+                            <q-item-label>Setting</q-item-label>
                         </q-item-section>
                     </q-item>
-                    <q-expansion-item icon="pages" label="Pages">
+                    <q-expansion-item icon="pages" label="Product Items">
                         <q-list class="q-pl-lg">
                             <q-item
-                                to="/Login-1"
+                                :href="route('categories.index')"
                                 active-class="q-item-no-link-highlighting"
                             >
                                 <q-item-section avatar>
-                                    <q-icon name="email" />
+                                    <q-icon name="category" />
                                 </q-item-section>
                                 <q-item-section>
-                                    <q-item-label>Login-1</q-item-label>
+                                    <q-item-label>Category</q-item-label>
                                 </q-item-section>
                             </q-item>
                             <q-item
-                                to="/Lock"
+                                :href="route('units.index')"
                                 active-class="q-item-no-link-highlighting"
                             >
                                 <q-item-section avatar>
-                                    <q-icon name="lock" />
+                                    <q-icon name="box" />
                                 </q-item-section>
                                 <q-item-section>
-                                    <q-item-label>Lock Screen</q-item-label>
-                                </q-item-section>
-                            </q-item>
-                            <q-item
-                                to="/Lock-2"
-                                active-class="q-item-no-link-highlighting"
-                            >
-                                <q-item-section avatar>
-                                    <q-icon name="lock" />
-                                </q-item-section>
-                                <q-item-section>
-                                    <q-item-label>Lock Screen - 2</q-item-label>
-                                </q-item-section>
-                            </q-item>
-                            <q-item
-                                to="/Pricing"
-                                active-class="q-item-no-link-highlighting"
-                            >
-                                <q-item-section avatar>
-                                    <q-icon name="list" />
-                                </q-item-section>
-                                <q-item-section>
-                                    <q-item-label>Pricing</q-item-label>
-                                </q-item-section>
-                            </q-item>
-                            <q-item-label
-                                header
-                                class="text-weight-bolder text-white"
-                                >Generic</q-item-label
-                            >
-                            <q-item
-                                to="/Profile"
-                                active-class="q-item-no-link-highlighting"
-                            >
-                                <q-item-section avatar>
-                                    <q-icon name="person" />
-                                </q-item-section>
-                                <q-item-section>
-                                    <q-item-label>User Profile</q-item-label>
-                                </q-item-section>
-                            </q-item>
-                            <q-item
-                                to="/Maintenance"
-                                active-class="q-item-no-link-highlighting"
-                            >
-                                <q-item-section avatar>
-                                    <q-icon name="settings" />
-                                </q-item-section>
-                                <q-item-section>
-                                    <q-item-label>Maintenance</q-item-label>
+                                    <q-item-label>Unit</q-item-label>
                                 </q-item-section>
                             </q-item>
                         </q-list>

@@ -89,7 +89,7 @@ const clearPhotoFileInput = () => {
                     @change="updatePhotoPreview"
                 >
 
-                <InputLabel for="photo" value="Photo" />
+                <!-- <InputLabel for="photo" value="Photo" /> -->
 
                 <!-- Current Profile Photo -->
                 <div v-show="! photoPreview" class="mt-2">
