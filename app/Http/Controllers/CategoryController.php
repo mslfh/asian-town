@@ -56,11 +56,12 @@ class CategoryController extends BaseController
         return Inertia::render('Categories/Create');
     }
 
-    public function store(CategoryRequest $request): RedirectResponse
+    public function store(CategoryRequest $request)
     {
         $data = $request->validated();
         $this->categoryService->createCategory($data);
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('categories.index')
+        ->with('success', 'Category created successfully.');
     }
 
     public function edit($id)
@@ -73,12 +74,14 @@ class CategoryController extends BaseController
     {
         $data = $request->validated();
         $this->categoryService->updateCategory($id, $data);
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('categories.index')
+        ->with('success', 'Category updated successfully.');
     }
 
     public function destroy($id): RedirectResponse
     {
         $this->categoryService->deleteCategory($id);
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('categories.index')
+        ->with('success', 'Category deleted successfully.');
     }
 }

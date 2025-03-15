@@ -1,45 +1,88 @@
 <script setup>
-import { ref, reactive } from "vue";
-import { usePage, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
+import { usePage, useForm, router } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { QDialog, QInput, QForm, QBtn } from 'quasar';
+import { useQuasar, QDialog, QInput, QForm, QBtn, QTree } from "quasar";
 
 const { props } = usePage();
-const categories = reactive(props.categories);
-const filter = ref("");
-const selectedNode = ref(null);
+const categories = ref(props.categories);
 const dialog = ref(false);
-const newCategoryName = ref("");
+const selected = ref(null);
+const $q = useQuasar();
 
 const form = useForm({
-    name: '',
-    chinese_name: '',
-    parent_id: null,
+    name: "",
+    chinese_name: "",
+    parent_id: 0,
 });
-
-const createCategory = (parentId = 0) => {
-    selectedNode.value = parentId;
-    dialog.value = true;
-    form.name = '';
-    form.chinese_name = '';
-    form.parent_id = parentId;
-};
-
-const saveCategory = () => {
-    form.post(route('categories.store'), {
-        onSuccess: () => {
-            dialog.value = false;
-        }
-    });
-};
-
-const deleteCategory = (id) => {
-    // Logic to delete a category
-};
 
 const resetFilter = () => {
     filter.value = "";
     filterRef.value.focus();
+};
+
+const openDialog = () => {
+    if (selected.value) {
+        form.parent_id = selected.value;
+    }
+    dialog.value = true;
+};
+
+const submitForm = () => {
+    form.post(route("categories.store"), {
+        onSuccess: (response) => {
+            dialog.value = false;
+            $q.notify({
+                message: "Category created successfully",
+                timeout: 1000,
+                color: "purple",
+            });
+            categories.value = response.props.categories;
+        },
+        onError: (error) => {
+            $q.notify({
+                message: "Error creating category",
+                timeout: 1000,
+                color: "red",
+            });
+        },
+    });
+};
+
+const deleteCategory = () => {
+    if (selected.value) {
+        $q.dialog({
+            title: 'Confirm',
+            message: 'Are you sure you want to delete this category?',
+            cancel: true,
+            persistent: true
+        }).onOk(() => {
+            router.delete(route('categories.destroy', selected.value), {
+                onSuccess: (response) => {
+                    $q.notify({
+                        message: 'Category deleted successfully',
+                        timeout: 1000,
+                        color: 'purple'
+                    });
+                    categories.value = response.props.categories;
+                    selected.value = null;
+                },
+                onError: (error) => {
+                    $q.notify({
+                        message: 'Error deleting category',
+                        timeout: 1000,
+                        color: 'red'
+                    });
+                }
+            });
+        });
+    } else {
+        $q.notify({
+            message: 'No category selected',
+            timeout: 1000,
+            color: 'red'
+        });
+    }
 };
 </script>
 
@@ -48,30 +91,50 @@ const resetFilter = () => {
         <q-page class="q-pa-lg q-mt-md">
             <q-card>
                 <q-toolbar>
-                    <q-toolbar-title>Categories</q-toolbar-title>
+                    <q-toolbar-title>Categories </q-toolbar-title>
                     <q-btn
-                        label="Add Category"
-                        @click="createCategory"
+                        label="Add New Category"
                         color="primary"
+                        @click="openDialog"
+                    />
+                    <q-btn
+                        label="Delete Category"
+                        color="negative"
+                        @click="deleteCategory"
                     />
                 </q-toolbar>
-                <q-input filled v-model="filter" label="Filter" class="q-mb-md" />
+                <q-input
+                    filled
+                    v-model="filter"
+                    label="Filter"
+                    class="q-mb-md"
+                />
                 <q-tree
                     :nodes="categories"
                     node-key="id"
+                    label-key="label"
+                    v-model:selected="selected"
                     :filter="filter"
-                    @update:selected="createCategory"
+                    default-expand-all
                 />
             </q-card>
         </q-page>
         <q-dialog v-model="dialog">
             <q-card>
                 <q-card-section>
-                    <q-form @submit.prevent="saveCategory">
+                    <q-form @submit.prevent="submitForm">
                         <q-input v-model="form.name" label="Category Name" />
-                        <q-input v-model="form.chinese_name" label="Chinese Name" />
+                        <q-input
+                            v-model="form.chinese_name"
+                            label="Chinese Name"
+                        />
                         <q-btn type="submit" label="Save" color="primary" />
-                        <q-btn type="button" label="Cancel" color="secondary" @click="dialog.value = false" />
+                        <q-btn
+                            type="button"
+                            label="Cancel"
+                            color="secondary"
+                            @click="dialog = false"
+                        />
                     </q-form>
                 </q-card-section>
             </q-card>
