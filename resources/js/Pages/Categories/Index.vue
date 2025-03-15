@@ -88,7 +88,6 @@ const deleteCategory = () => {
 
 <template>
     <AppLayout>
-        <q-page class="q-pa-lg q-mt-md">
             <q-card>
                 <q-toolbar>
                     <q-toolbar-title>Categories </q-toolbar-title>
@@ -118,7 +117,6 @@ const deleteCategory = () => {
                     default-expand-all
                 />
             </q-card>
-        </q-page>
         <q-dialog v-model="dialog">
             <q-card>
                 <q-card-section>

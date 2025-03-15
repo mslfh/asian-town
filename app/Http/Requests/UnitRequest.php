@@ -14,8 +14,7 @@ class UnitRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'title' => 'required|string|max:255',
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\UnitRequest;
 use App\Services\UnitService;
 use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class UnitController extends BaseController
 {
@@ -48,7 +49,8 @@ class UnitController extends BaseController
     public function update(UnitRequest $request, $id): RedirectResponse
     {
         $this->unitService->updateUnit($id, $request->all());
-        return redirect()->route('units.index')->with('success', 'Unit updated successfully.');
+        return redirect()->route('units.index')
+        ->with('success', 'Unit updated successfully.');
     }
 
     public function destroy($id): RedirectResponse
@@ -56,4 +58,15 @@ class UnitController extends BaseController
         $this->unitService->deleteUnit($id);
         return redirect()->route('units.index')->with('success', 'Unit deleted successfully.');
     }
+
+    // Delete multiple units
+    public function delete(Request $request): RedirectResponse
+    {
+        $ids = $request->input('ids');
+        foreach ($ids as $id) {
+            $this->unitService->deleteUnit($id);
+        }
+        return redirect()->route('units.index')->with('success', 'Units deleted successfully.');
+    }
+
 }

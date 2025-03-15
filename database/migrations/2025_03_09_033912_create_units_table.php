@@ -19,15 +19,6 @@ return new class extends Migration
             $table->string('norm')->nullable();
             $table->timestamps();
         });
-
-        // Insert basic data
-        DB::table('units')->insert([
-            ['title' => 'Piece', 'chinese_title' => '件', 'norm' => 'pcs'],
-            ['title' => 'Kilogram', 'chinese_title' => '千克', 'norm' => 'kg'],
-            ['title' => 'Liter', 'chinese_title' => '升', 'norm' => 'L'],
-            ['title' => 'Box', 'chinese_title' => '箱', 'norm' => '24pcs'],
-            ['title' => 'Bag', 'chinese_title' => '袋', 'norm' => '10kg']
-        ]);
     }
 
     /**

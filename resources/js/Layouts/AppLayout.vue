@@ -29,7 +29,6 @@ const toggleLeftDrawer = () => {
 const zoomLeftDrawer = () => {
     zoomDrawer.value = !zoomDrawer.value;
 };
-
 </script>
 
 <style>
@@ -163,7 +162,10 @@ const zoomLeftDrawer = () => {
                 "
             >
                 <q-list>
-                    <q-item :href="route('dashboard')" active-class="q-item-no-link-highlighting">
+                    <q-item
+                        :href="route('dashboard')"
+                        active-class="q-item-no-link-highlighting"
+                    >
                         <q-item-section avatar>
                             <q-icon name="dashboard" />
                         </q-item-section>
@@ -200,7 +202,7 @@ const zoomLeftDrawer = () => {
                                 active-class="q-item-no-link-highlighting"
                             >
                                 <q-item-section avatar>
-                                    <q-icon name="box" />
+                                    <q-icon name="inventory_2" />
                                 </q-item-section>
                                 <q-item-section>
                                     <q-item-label>Unit</q-item-label>
@@ -496,10 +498,11 @@ const zoomLeftDrawer = () => {
         </q-drawer>
 
         <q-page-container class="bg-grey-2">
-        <main>
-            <slot name="subtitle" />
-            <slot />
-        </main>
-     </q-page-container>
+            <q-page class="q-pa-lg q-mt-md">
+                <main>
+                    <slot />
+                </main>
+            </q-page>
+        </q-page-container>
     </q-layout>
 </template>
