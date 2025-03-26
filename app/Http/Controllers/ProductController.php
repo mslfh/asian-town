@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Services\ProductService;
+use App\Services\UnitService;
+use App\Services\CategoryService;
 use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
 
 class ProductController extends BaseController
 {
     protected $productService;
+    protected $unitService;
+    protected $categoryService;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductService $productService, UnitService $unitService, CategoryService $categoryService)
     {
         $this->productService = $productService;
+        $this->unitService = $unitService;
+        $this->categoryService = $categoryService;
     }
 
     public function index()
@@ -30,7 +36,11 @@ class ProductController extends BaseController
 
     public function create()
     {
-        return Inertia::render('Products/Create');
+        $units = $this->unitService->getAllUnits();
+        $categories = $this->categoryService->getAllCategories();
+        return Inertia::render('Products/Create')
+            ->with('units', $units)
+            ->with('categories', $categories);
     }
 
     public function store(ProductRequest $request): RedirectResponse

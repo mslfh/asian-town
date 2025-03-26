@@ -20,22 +20,22 @@ return new class extends Migration
             $table->string('barcode')->nullable();
 
             $table->text('image_url')->nullable();
-            $table->text('image_url_exp')->nullable();
+            $table->text('image_url_extra')->nullable();
 
             $table->integer('status')->default(0); //1-active, 0-inactive, 2-deleted
 
             $table->integer('type')->nullable();//1-店售 2-仓库 3-店售+仓库
+            $table->string('brand')->nullable();
 
             $table->integer('category_id')->nullable();
             $table->string('category')->nullable();
 
-            $table->string('brand')->nullable();
             $table->integer('unit_id')->nullable();
             $table->string('unit')->nullable();
 
             $table->text('description')->nullable();
-            $table->decimal('basic_price', 8, 2)->nullable();
-
+            $table->decimal('cost_price', 8, 2)->nullable();
+            $table->decimal('retail_price', 8, 2)->nullable();
             $table->timestamps();
         });
     }

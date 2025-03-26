@@ -24,6 +24,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+
     Route::delete('units/delete', [UnitController::class, 'delete'])->name('units.delete');
     Route::resources([
         'categories' => CategoryController::class,

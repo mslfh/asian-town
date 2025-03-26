@@ -184,6 +184,32 @@ const zoomLeftDrawer = () => {
                             <q-item-label>Setting</q-item-label>
                         </q-item-section>
                     </q-item>
+                    <q-expansion-item icon="pages" label="Products">
+                        <q-list class="q-pl-lg">
+                            <q-item
+                                :href="route('products.index')"
+                                active-class="q-item-no-link-highlighting"
+                            >
+                                <q-item-section avatar>
+                                    <q-icon name="view_list" />
+                                </q-item-section>
+                                <q-item-section>
+                                    <q-item-label>All</q-item-label>
+                                </q-item-section>
+                            </q-item>
+                            <q-item
+                                :href="route('products.create')"
+                                active-class="q-item-no-link-highlighting"
+                            >
+                                <q-item-section avatar>
+                                    <q-icon name="add_box" />
+                                </q-item-section>
+                                <q-item-section>
+                                    <q-item-label>Add</q-item-label>
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                    </q-expansion-item>
                     <q-expansion-item icon="pages" label="Product Items">
                         <q-list class="q-pl-lg">
                             <q-item
@@ -210,6 +236,7 @@ const zoomLeftDrawer = () => {
                             </q-item>
                         </q-list>
                     </q-expansion-item>
+
                     <q-expansion-item icon="map" label="Maps">
                         <q-list class="q-pl-lg">
                             <q-item
